@@ -1,0 +1,20 @@
+{
+  "name": "ro-crate-packaging-tool",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser-based tool for packaging a folder of PDFs into an RO-Crate 1.3 dataset.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "pdfjs-dist": "^6.3.289",
+    "ro-crate": "^3.7.2"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0"
+  }
+}

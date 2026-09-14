@@ -1,0 +1,97 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.3/context"
+  ],
+  "@graph": [
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "name": "",
+      "description": "",
+      "license": "",
+      "datePublished": "2026-09-14",
+      "hasPart": [
+        {
+          "@id": "an0022_crocodile.pdf"
+        },
+        {
+          "@id": "gu0001_baleh.pdf"
+        },
+        {
+          "@id": "KAYT_2014_258_book.pdf"
+        },
+        {
+          "@id": "KAYT_2014_260_text.pdf"
+        },
+        {
+          "@id": "LO_Sea_Creatures_first_language.pdf"
+        },
+        {
+          "@id": "Mi-Tjiwilirr%20i%20Wulumen%20Tulh.pdf"
+        },
+        {
+          "@id": "NG_Whats_this_Eng.pdf"
+        },
+        {
+          "@id": "pi0004_maku_maku.pdf"
+        }
+      ]
+    },
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "about": {
+        "@id": "./"
+      },
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.3"
+      }
+    },
+    {
+      "@id": "an0022_crocodile.pdf",
+      "@type": "File",
+      "name": "an0022_crocodile",
+      "dateCreated": "1601-01-01"
+    },
+    {
+      "@id": "gu0001_baleh.pdf",
+      "@type": "File",
+      "name": "gu0001_baleh",
+      "dateCreated": "1601-01-01"
+    },
+    {
+      "@id": "KAYT_2014_258_book.pdf",
+      "@type": "File",
+      "name": "KAYT_2014_258_book",
+      "dateCreated": "2024-01-24"
+    },
+    {
+      "@id": "KAYT_2014_260_text.pdf",
+      "@type": "File",
+      "name": "KAYT_2014_260_text",
+      "dateCreated": "2023-09-22"
+    },
+    {
+      "@id": "LO_Sea_Creatures_first_language.pdf",
+      "@type": "File",
+      "name": "LO_Sea_Creatures_first_language",
+      "dateCreated": "2012-05-16"
+    },
+    {
+      "@id": "Mi-Tjiwilirr%20i%20Wulumen%20Tulh.pdf",
+      "@type": "File",
+      "name": "Mi-Tjiwilirr i Wulumen Tulh",
+      "dateCreated": "2017-06-08"
+    },
+    {
+      "@id": "NG_Whats_this_Eng.pdf",
+      "@type": "File",
+      "name": "NG_Whats_this_Eng"
+    },
+    {
+      "@id": "pi0004_maku_maku.pdf",
+      "@type": "File",
+      "name": "pi0004_maku_maku"
+    }
+  ]
+}
