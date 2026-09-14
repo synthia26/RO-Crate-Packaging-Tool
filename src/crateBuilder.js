@@ -9,7 +9,9 @@ const RO_CRATE_CONFORMS_TO_URL = 'https://w3id.org/ro/crate/1.3';
 
 /**
  * Build an RO-Crate from reviewed collection and per-PDF metadata.
- * @param {{ collection: {name: string, description: string, license: string},
+ * Assumes collection.name, .description, .license, and .datePublished have
+ * already been validated as non-blank by the caller (see main.js).
+ * @param {{ collection: {name: string, description: string, license: string, datePublished: string},
  *           files: Array<{name: string, title: string, author: string, date: string, description: string}> }} input
  * @returns {ROCrate}
  */
@@ -29,10 +31,10 @@ export function buildCrate({ collection, files }) {
 
   const crate = new ROCrate(seed, {});
 
-  crate.rootDataset.name = collection.name || '';
-  crate.rootDataset.description = collection.description || '';
-  crate.rootDataset.license = collection.license || '';
-  crate.rootDataset.datePublished = new Date().toISOString().slice(0, 10);
+  crate.rootDataset.name = collection.name;
+  crate.rootDataset.description = collection.description;
+  crate.rootDataset.license = collection.license;
+  crate.rootDataset.datePublished = collection.datePublished;
 
   for (const pdf of files) {
     const id = encodeURIComponent(pdf.name);

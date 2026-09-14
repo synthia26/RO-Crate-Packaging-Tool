@@ -4,6 +4,7 @@ let pdfFieldset;
 let pdfEntriesEl;
 let generateBtn;
 let selectSourceBtn;
+let collectionInputs;
 
 function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>"']/g, (c) => ({
@@ -15,7 +16,7 @@ function escapeHtml(value) {
   }[c]));
 }
 
-export function renderShell(root, handlers) {
+export function renderShell(root, handlers, initialCollection = {}) {
   root.innerHTML = `
     <div class="app">
       <header class="app-header">
@@ -44,6 +45,10 @@ export function renderShell(root, handlers) {
           <label for="collection-license">License</label>
           <input id="collection-license" type="text" placeholder="e.g. https://creativecommons.org/licenses/by/4.0/" />
         </div>
+        <div class="field">
+          <label for="collection-date-published">Date Published</label>
+          <input id="collection-date-published" type="date" />
+        </div>
       </fieldset>
 
       <fieldset id="pdf-fieldset" class="panel" disabled>
@@ -65,18 +70,24 @@ export function renderShell(root, handlers) {
   generateBtn = root.querySelector('#generate-btn');
   selectSourceBtn = root.querySelector('#select-source-btn');
 
-  const collectionInputs = {
+  collectionInputs = {
     name: root.querySelector('#collection-name'),
     description: root.querySelector('#collection-description'),
     license: root.querySelector('#collection-license'),
+    datePublished: root.querySelector('#collection-date-published'),
   };
 
   selectSourceBtn.addEventListener('click', handlers.onSelectSource);
   generateBtn.addEventListener('click', handlers.onGenerate);
 
   for (const [field, input] of Object.entries(collectionInputs)) {
+    input.value = initialCollection[field] || '';
     input.addEventListener('input', () => handlers.onCollectionChange(field, input.value));
   }
+}
+
+export function focusCollectionField(field) {
+  collectionInputs?.[field]?.focus();
 }
 
 export function setStatus(message, level = 'info') {

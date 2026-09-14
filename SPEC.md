@@ -43,9 +43,10 @@ Stretch goals are not part of the initial implementation.
 
 ### Collection metadata
 
-- name
-- description
-- license — entered and edited by the user; the application does not infer or auto-populate a license from PDF content or metadata.
+- name — required before generation.
+- description — required before generation.
+- license — required before generation; entered and edited by the user; the application does not infer or auto-populate a license from PDF content or metadata.
+- datePublished — required before generation; defaults to the current date (`YYYY-MM-DD`) and remains editable.
 
 ### PDF metadata
 
@@ -86,7 +87,7 @@ The generated metadata must conform to RO-Crate 1.3.
 - `name`
 - `description`
 - `license`
-- `datePublished`: date the crate is generated, in `YYYY-MM-DD` format
+- `datePublished`: the reviewed collection date published, in `YYYY-MM-DD` format (defaults to the current date, editable before generation)
 - `hasPart`: references every PDF `File` entity
 
 ### PDF entities
@@ -110,6 +111,7 @@ Every PDF referenced by `hasPart` must exist in the generated output directory.
 - Use the filename without `.pdf` as the fallback editable title.
 - Missing author, date, or description values are left blank (not defaulted) and remain editable.
 - Generation must not proceed when no PDFs are loaded.
+- Generation must not proceed when required collection metadata (name, description, license, datePublished) is blank; the first missing field is reported in the status message and given input focus.
 - User cancellation of directory selection must not crash the application.
 - Errors should be presented as useful status messages.
 

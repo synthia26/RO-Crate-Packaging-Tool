@@ -6,9 +6,9 @@
     {
       "@id": "./",
       "@type": "Dataset",
-      "name": "",
-      "description": "",
-      "license": "",
+      "name": "Supplied PDF Files",
+      "description": "Collection of 8 PDF files",
+      "license": "License not provided in the source material",
       "datePublished": "2026-09-14",
       "hasPart": [
         {
@@ -50,14 +50,12 @@
     {
       "@id": "an0022_crocodile.pdf",
       "@type": "File",
-      "name": "an0022_crocodile",
-      "dateCreated": "1601-01-01"
+      "name": "an0022_crocodile"
     },
     {
       "@id": "gu0001_baleh.pdf",
       "@type": "File",
-      "name": "gu0001_baleh",
-      "dateCreated": "1601-01-01"
+      "name": "gu0001_baleh"
     },
     {
       "@id": "KAYT_2014_258_book.pdf",

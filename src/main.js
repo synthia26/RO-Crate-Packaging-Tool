@@ -15,19 +15,31 @@ import {
   setStatus,
   setSectionsEnabled,
   setGenerateEnabled,
+  focusCollectionField,
   scrollToTop,
 } from './ui.js';
+
+const REQUIRED_COLLECTION_FIELDS = [
+  { field: 'name', label: 'Collection name' },
+  { field: 'description', label: 'Collection description' },
+  { field: 'license', label: 'Collection license' },
+  { field: 'datePublished', label: 'Collection date published' },
+];
 
 const state = createInitialState();
 
 const root = document.getElementById('app');
-renderShell(root, {
-  onSelectSource: handleSelectSource,
-  onGenerate: handleGenerate,
-  onCollectionChange: (field, value) => {
-    state.collection[field] = value;
+renderShell(
+  root,
+  {
+    onSelectSource: handleSelectSource,
+    onGenerate: handleGenerate,
+    onCollectionChange: (field, value) => {
+      state.collection[field] = value;
+    },
   },
-});
+  state.collection
+);
 
 if (!isFileSystemAccessSupported()) {
   setStatus(
@@ -103,9 +115,26 @@ function handleFileFieldChange(index, field, value) {
   state.files[index][field] = value;
 }
 
+function validateCollection(collection) {
+  for (const { field, label } of REQUIRED_COLLECTION_FIELDS) {
+    if (!collection[field] || !collection[field].trim()) {
+      return { field, message: `${label} is required before generating the RO-Crate.` };
+    }
+  }
+  return null;
+}
+
 async function handleGenerate() {
   if (state.files.length === 0) {
     setStatus('Generation is not available until PDF files are loaded.', 'error');
+    scrollToTop();
+    return;
+  }
+
+  const validationError = validateCollection(state.collection);
+  if (validationError) {
+    setStatus(validationError.message, 'error');
+    focusCollectionField(validationError.field);
     scrollToTop();
     return;
   }
