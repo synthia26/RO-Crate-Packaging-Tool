@@ -48,46 +48,54 @@
     {
       "@id": "an0022_crocodile.pdf",
       "@type": "File",
-      "name": "an0022_crocodile"
+      "name": "an0022_crocodile",
+      "sha256": "92d39e2c344a4cc722e6754c1823a1185c1320e9bd2ffea01605f8262f1537d1"
     },
     {
       "@id": "gu0001_baleh.pdf",
       "@type": "File",
-      "name": "gu0001_baleh"
+      "name": "gu0001_baleh",
+      "sha256": "24ddb627d95ac1c7494220039ea29e7ebc8cb1a83b7485be456bd14cb1237a59"
     },
     {
       "@id": "KAYT_2014_258_book.pdf",
       "@type": "File",
       "name": "KAYT_2014_258_book",
-      "dateCreated": "2024-01-24"
+      "dateCreated": "2024-01-24",
+      "sha256": "a86b16204ff35387ca64a47ebba2573990cfc0d2901d1cc81461761ca9a28684"
     },
     {
       "@id": "KAYT_2014_260_text.pdf",
       "@type": "File",
       "name": "KAYT_2014_260_text",
-      "dateCreated": "2023-09-22"
+      "dateCreated": "2023-09-22",
+      "sha256": "f1359db47e36a57ce6ea1bfa8adcdabb878070cae7f49e509622e2b0039fb2cd"
     },
     {
       "@id": "LO_Sea_Creatures_first_language.pdf",
       "@type": "File",
       "name": "LO_Sea_Creatures_first_language",
-      "dateCreated": "2012-05-16"
+      "dateCreated": "2012-05-16",
+      "sha256": "17e9c946046b04158474e48330c2a31d3ebc972aab64e71083b684786822d6c7"
     },
     {
       "@id": "Mi-Tjiwilirr%20i%20Wulumen%20Tulh.pdf",
       "@type": "File",
       "name": "Mi-Tjiwilirr i Wulumen Tulh",
-      "dateCreated": "2017-06-08"
+      "dateCreated": "2017-06-08",
+      "sha256": "f39ecc6263544496a74e27f4ea5055bb102c2abf1b2d2fc0b1ce41d88f1a8236"
     },
     {
       "@id": "NG_Whats_this_Eng.pdf",
       "@type": "File",
-      "name": "NG_Whats_this_Eng"
+      "name": "NG_Whats_this_Eng",
+      "sha256": "7d2032a7ea5881e14eafeba7b3d7f5b1902738dbb53a2ac81a0412f057e8afcf"
     },
     {
       "@id": "pi0004_maku_maku.pdf",
       "@type": "File",
-      "name": "pi0004_maku_maku"
+      "name": "pi0004_maku_maku",
+      "sha256": "a0bb2781c912b57698d8f0047caaa07abea0de3e10719f63b42019854d612fe4"
     }
   ]
 }

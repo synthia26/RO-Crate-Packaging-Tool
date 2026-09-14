@@ -8,6 +8,7 @@ import {
   writeCrateToDirectory,
 } from './fileSystemAccess.js';
 import { extractPdfMetadata } from './pdfMetadata.js';
+import { sha256Hex } from './checksum.js';
 import { buildCrate } from './crateBuilder.js';
 import {
   renderShell,
@@ -90,6 +91,14 @@ async function handleSelectSource() {
   const files = [];
   for (const { name, file } of entries) {
     const extracted = await extractPdfMetadata(file);
+
+    let sha256;
+    try {
+      sha256 = await sha256Hex(file);
+    } catch (err) {
+      console.warn(`Could not compute checksum for "${name}":`, err);
+    }
+
     files.push({
       name,
       file,
@@ -97,6 +106,7 @@ async function handleSelectSource() {
       author: extracted.author || '',
       date: extracted.date || '',
       description: extracted.description || '',
+      sha256,
     });
   }
 

@@ -12,7 +12,7 @@ const RO_CRATE_CONFORMS_TO_URL = 'https://w3id.org/ro/crate/1.3';
  * Assumes collection.name, .description, .license, and .datePublished have
  * already been validated as non-blank by the caller (see main.js).
  * @param {{ collection: {name: string, description: string, license: string, datePublished: string},
- *           files: Array<{name: string, title: string, author: string, date: string, description: string}> }} input
+ *           files: Array<{name: string, title: string, author: string, date: string, description: string, sha256?: string}> }} input
  * @returns {object} A plain JSON-LD object ready for JSON.stringify().
  */
 export function buildCrate({ collection, files }) {
@@ -46,6 +46,7 @@ export function buildCrate({ collection, files }) {
     if (pdf.author) entity.author = pdf.author;
     if (pdf.date) entity.dateCreated = pdf.date;
     if (pdf.description) entity.description = pdf.description;
+    if (pdf.sha256) entity.sha256 = pdf.sha256;
 
     crate.addEntity(entity);
     crate.addValues(crate.rootId, 'hasPart', { '@id': id });

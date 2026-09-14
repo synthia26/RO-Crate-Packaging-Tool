@@ -100,6 +100,7 @@ Each PDF must be represented as a `File` entity.
 - `author`: reviewed author, as a plain string
 - `dateCreated`: reviewed date, normalised to `YYYY-MM-DD`, when provided
 - `description`: reviewed description, when provided
+- `sha256`: SHA-256 checksum of the PDF file, as a lowercase hex string, when successfully computed (see section 9)
 
 Every PDF referenced by `hasPart` must exist in the generated output directory.
 
@@ -128,7 +129,13 @@ Every PDF referenced by `hasPart` must exist in the generated output directory.
 
 The following stretch goals will only be considered after the minimum requirements are complete and verified:
 
-- SHA-256 checksums
 - ORCID identifiers
 - automated RO-Crate validation
 - static-site preview
+
+## 9. Stretch Features Implemented
+
+### File Checksums
+
+- Calculate a SHA-256 checksum for each PDF.
+- Include the checksum information in the generated RO-Crate metadata.
