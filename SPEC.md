@@ -13,24 +13,26 @@ Minimum requirements:
 - JavaScript implementation.
 - Browser-based single-page interface.
 - Select a source folder.
-- Discover PDF files in the selected folder.
-- Extract available embedded PDF metadata using a JavaScript PDF parsing library.
+- Discover PDF files in the top level of the selected folder only (no recursive traversal).
+- Extract available embedded PDF metadata using `pdfjs-dist`.
 - Display editable collection metadata.
-- Display editable metadata for each PDF.
+- Display editable metadata for each PDF; this editable view also serves as the list of discovered PDFs.
 - Use the `ro-crate` npm library to construct the crate.
 - Generate an RO-Crate conforming to RO-Crate 1.3.
 - Allow the user to select an output directory.
 - Write `ro-crate-metadata.json` and the referenced PDFs to the output directory.
+
+Scope is limited to the supplied sample PDF collection; handling of very large folders is not a requirement.
 
 Stretch goals are not part of the initial implementation.
 
 ## 3. User Workflow
 
 1. User selects a source directory.
-2. Application discovers `.pdf` files using a case-insensitive extension check.
-3. Application extracts available embedded metadata from each PDF.
+2. Application discovers `.pdf` files in the top level of that directory (non-recursive) using a case-insensitive extension check.
+3. Application extracts available embedded metadata from each PDF using `pdfjs-dist`.
 4. Extracted metadata is normalised into the application's metadata model.
-5. Application displays editable collection metadata and editable metadata for every PDF.
+5. Application displays editable collection metadata and editable metadata for every PDF; this is the sole, primary view of the discovered PDFs (no separate read-only file list).
 6. User reviews and corrects the metadata.
 7. User selects an output directory.
 8. Application constructs the RO-Crate using the `ro-crate` npm library.
@@ -43,31 +45,39 @@ Stretch goals are not part of the initial implementation.
 
 - name
 - description
-- license
+- license — entered and edited by the user; the application does not infer or auto-populate a license from PDF content or metadata.
 
 ### PDF metadata
 
 - source File object
 - filename
 - title
-- author
-- date
+- author (plain string for the minimum implementation)
+- date (the PDF's creation date)
 - description
 
 Embedded metadata is used only to initialise editable values. The reviewed values in the application model are used when generating the crate.
 
 If an embedded title is unavailable, the filename without the `.pdf` extension is used as the initial editable title.
 
+If an embedded creation date is available, it initialises the editable date value. If author, date, or description are unavailable, the corresponding field is left blank and remains editable; no placeholder text is generated.
+
+Date values are normalised to `YYYY-MM-DD` before being used to generate the crate.
+
 ## 5. RO-Crate Structure
 
 The generated metadata must conform to RO-Crate 1.3.
+
+`ro-crate-metadata.json` has a top-level `@context` key, not a separate entity, as a sibling of the `@graph` array that contains the Metadata Descriptor, Root Data Entity, and PDF entities:
+
+- `@context`: `https://w3id.org/ro/crate/1.3/context`
 
 ### Metadata Descriptor
 
 - `@id`: `ro-crate-metadata.json`
 - `@type`: `CreativeWork`
 - `about`: reference to `./`
-- `conformsTo`: RO-Crate 1.3
+- `conformsTo`: `https://w3id.org/ro/crate/1.3`
 
 ### Root Data Entity
 
@@ -76,16 +86,19 @@ The generated metadata must conform to RO-Crate 1.3.
 - `name`
 - `description`
 - `license`
+- `datePublished`: date the crate is generated, in `YYYY-MM-DD` format
 - `hasPart`: references every PDF `File` entity
 
 ### PDF entities
 
 Each PDF must be represented as a `File` entity.
 
-- `@id`: relative PDF filename/path
+- `@id`: relative PDF filename, percent-encoded where necessary to form a valid URI reference. The matching `hasPart` reference in the root Dataset must use the same encoded form. The physical copied filename on disk is left unchanged (not encoded).
 - `@type`: `File`
 - `name`: reviewed title
-- reviewed metadata where available
+- `author`: reviewed author, as a plain string
+- `dateCreated`: reviewed date, normalised to `YYYY-MM-DD`, when provided
+- `description`: reviewed description, when provided
 
 Every PDF referenced by `hasPart` must exist in the generated output directory.
 
@@ -95,6 +108,7 @@ Every PDF referenced by `hasPart` must exist in the generated output directory.
 - Missing embedded metadata must not cause a PDF to be rejected.
 - Failure to extract metadata from one PDF must not prevent other PDFs from loading.
 - Use the filename without `.pdf` as the fallback editable title.
+- Missing author, date, or description values are left blank (not defaulted) and remain editable.
 - Generation must not proceed when no PDFs are loaded.
 - User cancellation of directory selection must not crash the application.
 - Errors should be presented as useful status messages.
@@ -103,7 +117,7 @@ Every PDF referenced by `hasPart` must exist in the generated output directory.
 
 - Target Chromium-based browsers supporting the File System Access API.
 - Use the browser directory picker for source and output directory access.
-- Use a JavaScript PDF parsing library for embedded metadata extraction.
+- Use `pdfjs-dist` for embedded PDF metadata extraction.
 - Use the required `ro-crate` npm package for RO-Crate construction.
 - Keep PDF parsing, UI/application state, RO-Crate construction, and output writing reasonably separated.
 - Do not assume undocumented external-library APIs. Uncertain API usage should be verified before acceptance.
