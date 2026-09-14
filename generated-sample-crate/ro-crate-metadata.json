@@ -1,12 +1,10 @@
 {
-  "@context": [
-    "https://w3id.org/ro/crate/1.3/context"
-  ],
+  "@context": "https://w3id.org/ro/crate/1.3/context",
   "@graph": [
     {
       "@id": "./",
       "@type": "Dataset",
-      "name": "Supplied PDF Files",
+      "name": "Supplied PDF files",
       "description": "Collection of 8 PDF files",
       "license": "License not provided in the source material",
       "datePublished": "2026-09-14",

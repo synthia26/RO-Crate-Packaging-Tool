@@ -13,7 +13,7 @@ const RO_CRATE_CONFORMS_TO_URL = 'https://w3id.org/ro/crate/1.3';
  * already been validated as non-blank by the caller (see main.js).
  * @param {{ collection: {name: string, description: string, license: string, datePublished: string},
  *           files: Array<{name: string, title: string, author: string, date: string, description: string}> }} input
- * @returns {ROCrate}
+ * @returns {object} A plain JSON-LD object ready for JSON.stringify().
  */
 export function buildCrate({ collection, files }) {
   const seed = {
@@ -51,5 +51,13 @@ export function buildCrate({ collection, files }) {
     crate.addValues(crate.rootId, 'hasPart', { '@id': id });
   }
 
-  return crate;
+  // ro-crate always serialises @context as an array (even for a single
+  // entry); collapse the single-item case back to the equivalent plain
+  // string form for the written-out ro-crate-metadata.json.
+  const json = crate.toJSON();
+  if (Array.isArray(json['@context']) && json['@context'].length === 1) {
+    json['@context'] = json['@context'][0];
+  }
+
+  return json;
 }
